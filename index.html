@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Spotify Playlist</title>
+    <meta name="theme-color" content="#121212">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="mobile-app">
+        
+        <!-- SEARCH VIEW (Initial) -->
+        <div id="view-search" class="view">
+            <header class="app-header">
+                <h1 class="greeting">Spotify Playlist</h1>
+                <div class="search-bar">
+                    <span class="search-icon"><i class="fa-solid fa-search"></i></span>
+                    <input type="text" id="playlist-input" value="https://open.spotify.com/playlist/4d0fHu8OIqR1evggIfTZWf?si=yiGfgfXtSY29fWGZo_X_kg&pi=F1G8XF_ySbyaQ" placeholder="Paste link Spotify Playlist...">
+                    <button id="load-btn">Cari</button>
+                </div>
+            </header>
+            <div id="loading" style="display:none; text-align:center; padding: 20px; color: var(--text-secondary);">
+                <i class="fa-solid fa-spinner fa-spin" style="font-size: 24px; margin-bottom: 10px;"></i><br>
+                Memuat lagu...
+            </div>
+        </div>
+
+        <!-- PLAYLIST VIEW (Image 1) -->
+        <div id="view-playlist" class="view" style="display: none;">
+            <div class="playlist-header">
+                <i class="fa-solid fa-arrow-left" id="btn-back-search"></i>
+            </div>
+            
+            <div class="playlist-cover-container">
+                <img id="pl-cover" src="" alt="Playlist Cover">
+            </div>
+            
+            <div class="playlist-info">
+                <h1 id="pl-title">-- PLAYLIST --</h1>
+                <div class="pl-creator">
+                    <img id="pl-creator-avatar" src="" class="creator-avatar">
+                    <span id="pl-owner">Spotify</span>
+                </div>
+                <div class="pl-stats">Spotify Playlist</div>
+            </div>
+
+            <div class="playlist-actions">
+                <div class="action-icons">
+                    <i class="fa-regular fa-heart"></i>
+                    <i class="fa-solid fa-share-nodes"></i>
+                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                </div>
+                <div class="play-btn-large" id="btn-play-all">
+                    <i class="fa-solid fa-play"></i>
+                </div>
+            </div>
+
+            <ul id="track-list" class="track-list"></ul>
+            <div style="height: 80px;"></div> <!-- Spacer -->
+        </div>
+
+        <!-- MINI PLAYER -->
+        <div class="mini-player" id="mini-player" style="display: none;">
+            <div class="mp-content">
+                <img id="mp-image" src="" alt="Cover" class="mp-open-full">
+                <div class="mp-text" id="mp-open-full-text">
+                    <div class="mp-title-marquee"><span id="mp-title">Title</span></div>
+                    <div id="mp-artist" class="mp-artist">Artist</div>
+                </div>
+                <button class="mp-btn" id="btn-mp-like"><i class="fa-regular fa-heart"></i></button>
+                <button class="mp-btn" id="btn-mp-play"><i class="fa-solid fa-play"></i></button>
+            </div>
+            <div class="mp-progress-bg">
+                <div class="mp-progress-fill" id="mp-progress-fill"></div>
+            </div>
+        </div>
+
+        <!-- FULL SCREEN PLAYER (Image 2) -->
+        <div id="view-player" class="view player-view" style="transform: translateY(100%);">
+            <div class="fp-header">
+                <i class="fa-solid fa-chevron-down" id="btn-close-player"></i>
+                <span class="fp-header-title" id="fp-playlist-name">-- PLAYLIST --</span>
+                <i class="fa-solid fa-ellipsis"></i>
+            </div>
+
+            <div class="fp-cover-container">
+                <img id="fp-image" src="" alt="Cover">
+            </div>
+
+            <div class="fp-info-row">
+                <div class="fp-text">
+                    <h2 id="fp-title">Title</h2>
+                    <span id="fp-artist">Artist</span>
+                </div>
+                <i class="fa-regular fa-heart fp-like" id="btn-fp-like"></i>
+            </div>
+
+            <div class="fp-progress-container">
+                <div class="fp-progress-bar-wrapper">
+                    <div class="fp-progress-bg">
+                        <div class="fp-progress-fill" id="fp-progress-fill"></div>
+                    </div>
+                    <input type="range" id="fp-progress-bar" min="0" max="100" value="0">
+                </div>
+                <div class="fp-time">
+                    <span id="fp-time-current">0:00</span>
+                    <span id="fp-time-total">-:-</span>
+                </div>
+            </div>
+
+            <div class="fp-controls">
+                <i class="fa-solid fa-shuffle fp-secondary-ctrl"></i>
+                <i class="fa-solid fa-backward-step fp-main-ctrl" id="btn-fp-prev"></i>
+                <div class="fp-play-btn" id="btn-fp-play"><i class="fa-solid fa-play"></i></div>
+                <i class="fa-solid fa-forward-step fp-main-ctrl" id="btn-fp-next"></i>
+                <i class="fa-solid fa-repeat fp-secondary-ctrl"></i>
+            </div>
+            
+            <div class="fp-bottom-row" style="padding: 0 8px;">
+                <div style="display: flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.1); padding: 4px 12px 4px 4px; border-radius: 20px;">
+                    <img id="fp-bottom-pl-image" src="" alt="PL" style="width: 28px; height: 28px; border-radius: 50%;">
+                    <span id="fp-bottom-pl-title" style="font-size: 12px; font-weight: bold; color: #fff;">Playlist</span>
+                </div>
+                <i class="fa-solid fa-share-nodes"></i>
+            </div>
+        </div>
+
+        <audio id="audio-player"></audio>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
