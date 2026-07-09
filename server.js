@@ -118,5 +118,5 @@ app.get('/api/cover', async (req, res) => {
 });
 
 app.listen(3000, () => {
-    console.log("Hacker Backend with yt-dlp running on http://localhost:3000");
+    console.log("Backend with yt-dlp running on http://localhost:3000");
 });
